@@ -1,0 +1,3 @@
+# pyinstaller 폴더-파일 제외
+build/
+dist/
