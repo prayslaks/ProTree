@@ -1,15 +1,22 @@
 @echo off
   setlocal
 
-  echo [1/2] Installing PyInstaller...
-  pip install pyinstaller --quiet
+  echo [1/3] Creating virtual environment...
+  python -m venv .venv
+  if errorlevel 1 (
+      echo ERROR: Failed to create virtual environment.
+      exit /b 1
+  )
+
+  echo [2/3] Installing dependencies...
+  .venv\Scripts\pip install -r requirements.txt --quiet
   if errorlevel 1 (
       echo ERROR: pip install failed.
       exit /b 1
   )
 
-  echo [2/2] Building protree.exe...
-  pyinstaller --onefile --name protree --distpath dist --workpath build\pyinstaller --specpath build\pyinstaller protree.py
+  echo [3/3] Building protree.exe...
+  .venv\Scripts\pyinstaller --onefile --name protree --distpath dist --workpath build\pyinstaller --specpath build\pyinstaller protree.py
   if errorlevel 1 (
       echo ERROR: PyInstaller build failed.
       exit /b 1
